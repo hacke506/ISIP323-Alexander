@@ -1,61 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
-public class Product
+using System.Data;
+class Product
 {
-    private static int nextId = 1; // статическая переменная для автоматической нумерации
+    private static int nextCode = 1; // Статический счетчик для уникальных кодов
 
-    public string Code { get; private set; } // уникальный код
-    public string Name { get; set; } // название
-    public decimal Price { get; set; } // цена
-    public int Quantity { get; set; } // количество
-    public string Category { get; set; } // категория
+    public string Code { get; }           // Уникальный код, например "1", "2" и т.д.
+    public string Name { get; set; }      // Название товара
+    public decimal Price { get; set; }    // Цена
+    public int Quantity { get; set; }     // Количество на складе
+    public string Category { get; set; }  // Категория
 
-    // Конструктор для создания товара
+    // Конструктор, вызывается при добавлении товара
     public Product(string name, decimal price, int quantity, string category)
     {
-        Code = "1" + nextId.ToString("D4"); // например, 10001, 10002, ...
-        nextId++;
+        Code = (nextCode++).ToString(); // автоматическая нумерация
         Name = name;
         Price = price;
         Quantity = quantity;
         Category = category;
     }
 
-    // Свойство, показывающее есть ли товар
-    public bool IsAvailable => Quantity > 0;
+    // Метод для проверки, есть ли товар на складе
+    public bool InStock()
+    {
+        return Quantity > 0;
+    }
 
-    // Для вывода всей информации о товаре
     public override string ToString()
     {
-        return $"Код: {Code} | Название: {Name} | Цена: {Price} руб. | Количество: {Quantity} | Категория: {Category} | Остаток: {(IsAvailable ? "Есть" : "Нет")}";
+        return $"Код: {Code}, Название: {Name}, Цена: {Price}, Количество: {Quantity}, Категория: {Category}";
     }
 }
 
-class Program
+class Programm
 {
-    static List<Product> products = new List<Product>(); // коллекция товаров
+    static List<Product> products = new List<Product>();
 
-    static void Main()
+    // Заранее задаем категории
+    static string[] categories = { "Электроника", "Одежда", "Продукты" };
+
+    static void Main(string[] args)
     {
-        // ЭТАП 2: Предопределим категории
-        var categories = new List<string> { "Электроника", "Одежда", "Продукты" };
-
+        // Основной цикл меню
         while (true)
         {
-            Console.WriteLine("\n--- МЕНЮ ---");
-            Console.WriteLine("1 - Добавить товар");
-            Console.WriteLine("2 - Удалить товар");
-            Console.WriteLine("3 - Заказать поставку");
-            Console.WriteLine("4 - Продать товар");
-            Console.WriteLine("5 - Поиск товара");
-            Console.WriteLine("0 - Выход");
-            Console.Write("Введите номер команды: ");
+            Console.WriteLine("\nВыберите операцию:");
+            Console.WriteLine("1. Добавить товар");
+            Console.WriteLine("2. Удалить товар");
+            Console.WriteLine("3. Заказать поставку");
+            Console.WriteLine("4. Продать товар");
+            Console.WriteLine("5. Поиск товаров");
+            Console.WriteLine("0. Выход");
+            Console.Write("Ваш выбор: ");
             string choice = Console.ReadLine();
 
             switch (choice)
             {
                 case "1":
-                    AddProduct(categories);
+                    AddProduct();
                     break;
                 case "2":
                     RemoveProduct();
@@ -67,24 +69,23 @@ class Program
                     SellProduct();
                     break;
                 case "5":
-                    SearchProduct();
+                    SearchProducts();
                     break;
                 case "0":
-                    Console.WriteLine("Выход из программы.");
-                    return;
+                    return; // выход из программы
                 default:
-                    Console.WriteLine("Некорректный ввод, попробуйте снова.");
+                    Console.WriteLine("Некорректный выбор. Попробуйте снова.");
                     break;
             }
         }
     }
 
-    private static void SearchProduct()
+    private static void AddProduct()
     {
         throw new NotImplementedException();
     }
 
-    private static void SellProduct()
+    private static void RemoveProduct()
     {
         throw new NotImplementedException();
     }
@@ -94,14 +95,13 @@ class Program
         throw new NotImplementedException();
     }
 
-    private static void AddProduct(List<string> categories)
+    private static void SellProduct()
     {
         throw new NotImplementedException();
     }
 
-    private static void RemoveProduct()
+    private static void SearchProducts()
     {
         throw new NotImplementedException();
     }
 }
-
