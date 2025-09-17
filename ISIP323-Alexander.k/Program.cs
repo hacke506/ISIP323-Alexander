@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 public class Product
 {
     private static int nextId = 1; // статическая переменная для автоматической нумерации
@@ -29,3 +30,78 @@ public class Product
         return $"Код: {Code} | Название: {Name} | Цена: {Price} руб. | Количество: {Quantity} | Категория: {Category} | Остаток: {(IsAvailable ? "Есть" : "Нет")}";
     }
 }
+
+class Program
+{
+    static List<Product> products = new List<Product>(); // коллекция товаров
+
+    static void Main()
+    {
+        // ЭТАП 2: Предопределим категории
+        var categories = new List<string> { "Электроника", "Одежда", "Продукты" };
+
+        while (true)
+        {
+            Console.WriteLine("\n--- МЕНЮ ---");
+            Console.WriteLine("1 - Добавить товар");
+            Console.WriteLine("2 - Удалить товар");
+            Console.WriteLine("3 - Заказать поставку");
+            Console.WriteLine("4 - Продать товар");
+            Console.WriteLine("5 - Поиск товара");
+            Console.WriteLine("0 - Выход");
+            Console.Write("Введите номер команды: ");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    AddProduct(categories);
+                    break;
+                case "2":
+                    RemoveProduct();
+                    break;
+                case "3":
+                    RestockProduct();
+                    break;
+                case "4":
+                    SellProduct();
+                    break;
+                case "5":
+                    SearchProduct();
+                    break;
+                case "0":
+                    Console.WriteLine("Выход из программы.");
+                    return;
+                default:
+                    Console.WriteLine("Некорректный ввод, попробуйте снова.");
+                    break;
+            }
+        }
+    }
+
+    private static void SearchProduct()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void SellProduct()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void RestockProduct()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void AddProduct(List<string> categories)
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void RemoveProduct()
+    {
+        throw new NotImplementedException();
+    }
+}
+
